@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"mod":["vector2","vector3"]};
