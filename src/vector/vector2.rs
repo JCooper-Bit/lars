@@ -8,8 +8,7 @@
 use std::fmt;
 use std::ops::Mul;
 use derive_more::{Add, Sub, Mul, Div, Neg, Constructor};
-use super::scalar::Scalar;
-
+use crate::Mat2;
 
 /// A 2-dimensional vector type
 ///
@@ -26,9 +25,9 @@ use super::scalar::Scalar;
 #[derive(Add, Sub, Div, Mul, Neg, Clone, Copy, Debug, PartialEq, PartialOrd, Constructor)]
 pub struct Vec2 {
     /// X component of the vector.
-    pub x: Scalar,
+    pub x: f64,
     /// Y component of the vector.
-    pub y: Scalar,
+    pub y: f64,
 }
 
 impl Vec2 {
@@ -50,7 +49,7 @@ impl Vec2 {
     /// let v = Vec2::new(3.0, 4.0);
     /// assert_eq!(v.mag(), 5.0);
     /// ```
-    pub fn mag(&self) -> Scalar {
+    pub fn mag(&self) -> f64 {
         (self.x * self.x + self.y * self.y).sqrt()
     }
 
@@ -66,7 +65,7 @@ impl Vec2 {
     /// let b = Vec2::new(3.0, 4.0);
     /// assert_eq!(a.dot(&b), 11.0);
     /// ```
-    pub fn dot(&self, other: &Vec2) -> Scalar {
+    pub fn dot(&self, other: &Vec2) -> f64 {
         (self.x * other.x) + (self.y * other.y)
     }
 
@@ -83,7 +82,7 @@ impl Vec2 {
     /// let b = Vec2::new(0.0, 1.0);
     /// assert_eq!(a.cross(&b), 1.0);
     /// ```
-    pub fn cross(&self, other: &Vec2) -> Scalar {
+    pub fn cross(&self, other: &Vec2) -> f64 {
         self.x * other.y - self.y * other.x
     }
 
@@ -99,7 +98,7 @@ impl Vec2 {
     /// ```
     pub fn map<F>(&self, f: F) -> Vec2
     where
-        F: Fn(Scalar) -> Scalar,
+        F: Fn(f64) -> f64,
     {
         let fx = f(self.x);
         let fy = f(self.y);
@@ -134,7 +133,7 @@ impl Vec2 {
     /// let v = Vec2::new(3.0, 4.0);
     /// assert_eq!(v.mag_sq(), 25.0);
     /// ```
-    pub fn mag_sq(&self) -> Scalar {
+    pub fn mag_sq(&self) -> f64 {
         self.x * self.x + self.y * self.y
     }
 
@@ -142,7 +141,7 @@ impl Vec2 {
 
 }
 
-/// Implements **scalar multiplication** for `Scalar * Vec2`.
+/// Implements **scalar multiplication** for `f64 * Vec2`.
 ///
 /// # Examples
 /// ```
@@ -181,6 +180,18 @@ impl Mul<Vec2> for Vec2 {
         }
     }
 }
+// Vec2 * Mat2
+impl Mul<Mat2> for Vec2 {
+    type Output = Vec2;
+    fn mul(self, m: Mat2) -> Vec2 {
+
+        let x = m.a*self.x + m.b*self.y;
+        let y = m.c*self.x + m.d*self.y;
+
+        Vec2::new(x, y)
+    }
+}
+
 
 /// Represents a 2D point in space.
 ///
@@ -203,7 +214,7 @@ impl Point2D {
     ///
     ///
     /// ```
-    pub fn dist(&self, other: &Point2D) -> Scalar {
+    pub fn dist(&self, other: &Point2D) -> f64 {
         (*self - *other).mag().abs()
     }
     /// Finds the unsigned distance between `self` and another 3D point `Other`, squared
@@ -218,7 +229,7 @@ impl Point2D {
     /// assert_eq!(a.dist_sq(&b), 4.0)
     ///
     /// ```
-    pub fn dist_sq(&self, other: &Point2D) -> Scalar {
+    pub fn dist_sq(&self, other: &Point2D) -> f64 {
         (*self - *other).mag_sq().abs()
     }
 
