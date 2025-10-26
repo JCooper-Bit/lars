@@ -2,11 +2,13 @@ name: Deploy Rust Docs
 
 on:
   push:
-    branches:
-      - master  # Or master, your default branch
+    branches: master
+
+permissions:
+  contents: write
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,8 +21,8 @@ jobs:
           toolchain: stable
           override: true
 
-      - name: Build Documentation
-        run: cargo doc --no-deps
+      - name: Build documentation
+        run: cargo doc --no-deps --document-private-items
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
