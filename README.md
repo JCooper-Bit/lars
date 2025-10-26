@@ -71,27 +71,15 @@ src/
  ├── vector/
  │    ├── mod.rs
  │    ├── vec2.rs   # ✅ Implemented
+ │    ├── scalar.rs # ✅ Implemented
  │    └── vec3.rs   # ✅ Implemented
  ├── matrix/
  │    ├── mod.rs
  │    ├── mat2.rs   # ⏳ Planned
  │    └── mat3.rs   # ⏳ Planned
- ├── traits.rs      # ⏳ Common interfaces
- └── transformations.rs  # ⏳ Rotations, scaling, etc.
+ ├── traits.rs      # ⏳ Planned
+ └── transformations.rs  # ⏳ Planned
 ```
-
----
-
-## 🧪 Running Tests
-
-To verify correctness of all vector operations:
-
-```bash
-cargo test
-```
-
----
-
 
 ---
 
