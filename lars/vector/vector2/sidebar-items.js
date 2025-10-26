@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["Vec2"],"type":["Point2D","Scalar"]};
