@@ -212,13 +212,11 @@ impl Point3D {
     /// #examples
     ///
     /// ```
+    ///
     /// use lars::Point3D;
     /// let a = Point3D::new(2.0, 0.0, 0.0);
     /// let b = Point3D::new(0.0, 0.0, 0.0);
     /// assert_eq!(a.dist_sq(&b), 4.0)
-    ///
-    ///
-    ///
     ///
     /// ```
     pub fn dist_sq(&self, other: &Point3D) -> f64 {
@@ -253,15 +251,15 @@ mod tests {
     }
     #[test]
     fn test_dist_sq() {
-        let a = Vec3::new(1.0, 2.0, 3.0);
-        let b = Vec3::new(1.0, 0.0, 3.0);
+        let a = Point3D::new(1.0, 2.0, 3.0);
+        let b = Point3D::new(1.0, 0.0, 3.0);
         assert_eq!(a.dist_sq(&b), 4.0);
     }
     #[test]
     fn test_dot_product() {
 
-        let a = Vec3::new(1.0, 2.0, 3.0);
-        let b = Vec3::new(4.0, -5.0, 6.0);
+        let a = Point3D::new(1.0, 2.0, 3.0);
+        let b = Point3D::new(4.0, -5.0, 6.0);
         assert_eq!(a.dot(&b), 12.0);
     }
 

@@ -6,7 +6,6 @@
 //! It supports vector addition, subtraction, scaling, dot and cross products, and normalization.
 use std::ops::Mul;
 use derive_more::{Add, Sub, Mul, Div, Neg, Constructor};
-
 use super::scalar::Scalar;
 
 
@@ -178,7 +177,42 @@ impl Mul<Vec2> for Vec2 {
 /// Alias for [`Vec2`].
 pub type Point2D = Vec2;
 
+impl Point2D {
 
+    /// Finds the unsigned distance between `self` and another 3D point `Other`.
+    ///
+    /// #examples
+    ///
+    /// ```
+    /// use lars::Point2D;
+    /// let a = Point2D::new(1.0, 0.0);
+    /// let b = Point2D::new(0.0, 0.0);
+    /// assert_eq!(a.dist(&b), 1.0)
+    ///
+    ///
+    ///
+    ///
+    /// ```
+    pub fn dist(&self, other: &Point2D) -> f64 {
+        (*self - *other).mag().abs()
+    }
+    /// Finds the unsigned distance between `self` and another 3D point `Other`, squared
+    ///
+    /// #examples
+    ///
+    /// ```
+    ///
+    /// use lars::Point2D;
+    /// let a = Point2D::new(2.0, 0.0);
+    /// let b = Point2D::new(0.0, 0.0);
+    /// assert_eq!(a.dist_sq(&b), 4.0)
+    ///
+    /// ```
+    pub fn dist_sq(&self, other: &Point2D) -> f64 {
+        (*self - *other).mag_sq().abs()
+    }
+
+}
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -194,12 +228,29 @@ mod tests {
         let v = Vec2::new(3.0, 4.0);
         assert_eq!(v.mag_sq(), 25.0);
     }
+
+    #[test]
+    fn test_dist() {
+        let a = Point2D::new(1.0, 2.0);
+        let b = Point2D::new(1.0, 0.0);
+        assert_eq!(a.dist(&b), 2.0);
+    }
+
+    #[test]
+    fn test_dist_sq() {
+        let a = Point2D::new(1.0, 2.0);
+        let b = Point2D::new(1.0, 0.0);
+        assert_eq!(a.dist_sq(&b), 4.0);
+    }
+
+
     #[test]
     fn test_dot() {
         let a = Vec2::new(1.0, 2.0);
         let b = Vec2::new(3.0, 4.0);
         assert_eq!(a.dot(&b), 11.0);
     }
+
 
     #[test]
     fn test_cross() {
