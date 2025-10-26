@@ -1,0 +1,171 @@
+//! My implementation of a Vector struct within Rust.
+//!
+//! This module provides a simple 3D vector (`Vec3`) type with common operations used in
+//! computer graphics, ray tracing, and physics. Includes vector arithmetic, dot and cross products,
+//! normalization, and conversion to RGB colors.
+
+use std::ops::Mul;
+use derive_more::{Add, Sub, Mul, Div, Neg, Constructor};
+/// A 3-dimensional vector type.
+///
+/// Provides common vector operations such as addition, subtraction, scalar and component-wise
+/// multiplication, normalization, dot and cross products.
+///
+/// # Examples
+/// ```
+/// let a = Vec3::new(1.0, 0.0, 0.0);
+/// let b = Vec3::new(0.0, 1.0, 0.0);
+///
+/// let cross = a.cross(&b); // Vec3 { x: 0.0, y: 0.0, z: 1.0 }
+/// let dot = a.dot(&b); // 0.0
+/// ```
+#[derive(Add, Sub, Mul, Div, Neg, Clone, Copy, Debug, PartialEq, PartialOrd, Constructor)]
+pub struct Vec3 {
+    /// X component of the vector.
+    pub x: f64,
+    /// Y component of the vector.
+    pub y: f64,
+    /// Z component of the vector.
+    pub z: f64,
+}
+
+impl Vec3 {
+    /// Returns the **dot product** between `self` and another [`Vec3`].
+    ///
+    /// # Examples
+    /// ```
+    /// let a = Vec3::new(1.0, 2.0, 3.0);
+    /// let b = Vec3::new(4.0, -5.0, 6.0);
+    /// assert_eq!(a.dot(&b), 12.0);
+    /// ```
+    pub fn dot(&self, other: &Vec3) -> f64 {
+        (self.x * other.x) + (self.y * other.y) + (self.z * other.z)
+    }
+
+    /// Returns the **magnitude** (length) of the vector.
+    ///
+    /// # Examples
+    /// ```
+    /// let v = Vec3::new(3.0, 4.0, 0.0);
+    /// assert_eq!(v.mag(), 5.0);
+    /// ```
+    pub fn mag(&self) -> f64 {
+        (self.x * self.x + self.y * self.y + self.z * self.z).sqrt()
+    }
+
+    /// Returns the **cross product** between `self` and another [`Vec3`].
+    ///
+    /// The cross product is perpendicular to both vectors.
+    ///
+    /// # Examples
+    /// ```
+    /// let a = Vec3::new(1.0, 0.0, 0.0);
+    /// let b = Vec3::new(0.0, 1.0, 0.0);
+    /// assert_eq!(a.cross(&b), Vec3::new(0.0, 0.0, 1.0));
+    /// ```
+    pub fn cross(&self, other: &Vec3) -> Vec3 {
+        let x = (self.y * other.z) - (self.z * other.y);
+        let y = (self.z * other.x) - (self.x * other.z);
+        let z = (self.x * other.y) - (self.y * other.x);
+        Vec3 { x, y, z }
+    }
+
+    /// Applies a function `f` to each component (`x`, `y`, and `z`) of the vector.
+    ///
+    /// # Examples
+    /// ```
+    /// let v = Vec3::new(1.0, 2.0, 3.0);
+    /// let squared = v.map(|x| x * x);
+    /// assert_eq!(squared, Vec3::new(1.0, 4.0, 9.0));
+    /// ```
+    pub fn map<F>(&self, f: F) -> Vec3
+    where
+        F: Fn(f64) -> f64,
+    {
+        let fx = f(self.x);
+        let fy = f(self.y);
+        let fz = f(self.z);
+        Vec3 { x: fx, y: fy, z: fz }
+    }
+
+    /// Returns a **normalized** version of the vector (unit length).
+    ///
+    /// Each component is divided by the vector's magnitude.
+    ///
+    /// # Panics
+    /// Panics if the vector has zero magnitude (division by zero).
+    ///
+    /// # Examples
+    /// ```
+    /// let v = Vec3::new(3.0, 0.0, 0.0);
+    /// assert_eq!(v.normalize(), Vec3::new(1.0, 0.0, 0.0));
+    /// ```
+    pub fn normalize(&self) -> Vec3 {
+        self.map(|i| i / self.mag())
+    }
+}
+
+/// Converts a [`Vec3`] with components between `0.0` and `1.0`
+/// into an [`Rgb<u8>`] color value.
+///
+/// Each component is clamped to `[0.0, 1.0]` and scaled to `[0, 255]`.
+// impl From<Vec3> for Rgb<u8> {
+//     fn from(v: Vec3) -> Rgb<u8> {
+//         let r = (v.x.clamp(0.0, 1.0) * 255.0) as u8;
+//         let g = (v.y.clamp(0.0, 1.0) * 255.0) as u8;
+//         let b = (v.z.clamp(0.0, 1.0) * 255.0) as u8;
+//         Rgb { 0: [r, g, b] }
+//     }
+// }
+
+/// Implements scalar multiplication of a vector by a float (`f64`).
+///
+/// This enables `f64 * Vec3` syntax.
+///
+/// # Examples
+/// ```
+/// let v = Vec3::new(1.0, 2.0, 3.0);
+/// let scaled = 2.0 * v;
+/// assert_eq!(scaled, Vec3::new(2.0, 4.0, 6.0));
+/// ```
+impl Mul<Vec3> for f64 {
+    type Output = Vec3;
+    fn mul(self, vector: Vec3) -> Vec3 {
+        Vec3 {
+            x: self * vector.x,
+            y: self * vector.y,
+            z: self * vector.z,
+        }
+    }
+}
+
+/// Implements **component-wise multiplication** between two [`Vec3`]s.
+///
+/// This is useful for operations such as color blending or per-component scaling.
+///
+/// # Examples
+/// ```
+/// let a = Vec3::new(1.0, 2.0, 3.0);
+/// let b = Vec3::new(2.0, 0.5, 4.0);
+/// assert_eq!(a * b, Vec3::new(2.0, 1.0, 12.0));
+/// ```
+impl Mul<Vec3> for Vec3 {
+    type Output = Vec3;
+    fn mul(self, vector: Vec3) -> Vec3 {
+        Vec3 {
+            x: self.x * vector.x,
+            y: self.y * vector.y,
+            z: self.z * vector.z,
+        }
+    }
+}
+
+/// Represents an RGB color with values between `0.0` and `1.0`.
+///
+/// Alias for [`Vec3`].
+pub type Colour = Vec3;
+
+/// Represents a 3D point in space.
+///
+/// Alias for [`Vec3`].
+pub type Point = Vec3;
