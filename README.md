@@ -18,7 +18,7 @@ The goal of this project is to **implement linear algebra concepts** (vectors, m
 
 Example:
 ```rust
-use LArs::Vec2;
+use lars::Vec2;
 
 fn main() {
     let a = Vec2::new(3.0, 4.0);
