@@ -45,19 +45,6 @@ impl Vec2 {
         (self.x * self.x + self.y * self.y).sqrt()
     }
 
-    ///  Returns the **magnitude**  of the vector, squared.
-    ///
-    /// # Examples
-    /// ```
-    ///
-    /// use lars::Vec2;
-    /// let v = Vec2::new(3.0, 4.0);
-    /// assert_eq!(v.mag_sq(), 25.0);
-    /// ```
-    pub fn mag_sq(&self) -> f64 {
-        self.x * self.x + self.y * self.y
-    }
-
     /// Returns the **dot product** between `self` and another [`Vec2`].
     ///
     /// The dot product measures the cosine of the angle between two vectors.
@@ -126,6 +113,24 @@ impl Vec2 {
         let m = self.mag();
         self.map(|i| i / m)
     }
+
+    // All functions below this point are variations of the above functions
+
+    ///  Returns the **magnitude**  of the vector, squared.
+    ///
+    /// # Examples
+    /// ```
+    ///
+    /// use lars::Vec2;
+    /// let v = Vec2::new(3.0, 4.0);
+    /// assert_eq!(v.mag_sq(), 25.0);
+    /// ```
+    pub fn mag_sq(&self) -> f64 {
+        self.x * self.x + self.y * self.y
+    }
+
+
+
 }
 
 /// Implements **scalar multiplication** for `f64 * Vec2`.

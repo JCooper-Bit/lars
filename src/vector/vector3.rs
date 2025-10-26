@@ -46,18 +46,6 @@ impl Vec3 {
         (self.x * self.x + self.y * self.y + self.z * self.z).sqrt()
     }
 
-    /// Returns the **magnitude**  of the vector, squared.
-    ///
-    /// # Examples
-    /// ```
-    ///  use lars::Vec3;
-    /// let v = Vec3::new(3.0, 4.0, 0.0);
-    /// assert_eq!(v.mag_sq(), 25.0);
-    /// ```
-    pub fn mag_sq(&self) -> f64 {
-        self.x * self.x + self.y * self.y + self.z * self.z
-    }
-
     /// Returns the **dot product** between `self` and another [`Vec3`].
     ///
     /// # Examples
@@ -127,6 +115,22 @@ impl Vec3 {
         let m = self.mag();
         self.map(|i| i / m)
     }
+
+    // All functions below this point are variations of the above functions
+
+    /// Returns the **magnitude**  of the vector, squared.
+    ///
+    /// # Examples
+    /// ```
+    ///  use lars::Vec3;
+    /// let v = Vec3::new(3.0, 4.0, 0.0);
+    /// assert_eq!(v.mag_sq(), 25.0);
+    /// ```
+    pub fn mag_sq(&self) -> f64 {
+        self.x * self.x + self.y * self.y + self.z * self.z
+    }
+
+
 }
 
 
@@ -176,6 +180,7 @@ impl Mul<Vec3> for Vec3 {
 
 /// Represents an RGB color with values between `0.0` and `1.0`.
 /// Will eventually contain support for conversions with the image crate
+///
 /// Alias for [`Vec3`].
 pub type Colour = Vec3;
 
@@ -183,6 +188,44 @@ pub type Colour = Vec3;
 ///
 /// Alias for [`Vec3`].
 pub type Point3D = Vec3;
+impl Point3D {
+
+    /// Finds the unsigned distance between `self` and another 3D point `Other`.
+    ///
+    /// #examples
+    ///
+    /// ```
+    /// use lars::{Point3D};
+    /// let a = Point3D::new(1.0, 0.0, 0.0);
+    /// let b = Point3D::new(0.0, 0.0, 0.0);
+    /// assert_eq!(a.dist(&b), 1.0)
+    ///
+    ///
+    ///
+    ///
+    /// ```
+    pub fn dist(&self, other: &Point3D) -> f64 {
+        (*self - *other).mag().abs()
+    }
+    /// Finds the unsigned distance between `self` and another 3D point `Other`, squared
+    ///
+    /// #examples
+    ///
+    /// ```
+    /// use lars::Point3D;
+    /// let a = Point3D::new(2.0, 0.0, 0.0);
+    /// let b = Point3D::new(0.0, 0.0, 0.0);
+    /// assert_eq!(a.dist_sq(&b), 4.0)
+    ///
+    ///
+    ///
+    ///
+    /// ```
+    pub fn dist_sq(&self, other: &Point3D) -> f64 {
+        (*self - *other).mag_sq().abs()
+    }
+
+}
 
 
 
@@ -201,6 +244,18 @@ mod tests {
         let v = Vec3::new(1.0, 2.0, 2.0);
         assert_eq!(v.mag_sq(), 9.0);
 
+    }
+    #[test]
+    fn test_dist() {
+        let a = Vec3::new(1.0, 2.0, 3.0);
+        let b = Vec3::new(1.0, 0.0, 3.0);
+        assert_eq!(a.dist(&b), 2.0);
+    }
+    #[test]
+    fn test_dist_sq() {
+        let a = Vec3::new(1.0, 2.0, 3.0);
+        let b = Vec3::new(1.0, 0.0, 3.0);
+        assert_eq!(a.dist_sq(&b), 4.0);
     }
     #[test]
     fn test_dot_product() {
