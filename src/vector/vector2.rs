@@ -7,10 +7,8 @@
 use std::ops::Mul;
 use derive_more::{Add, Sub, Mul, Div, Neg, Constructor};
 
-/// Scalar type used throughout vector operations.
-///
-/// Aliased to `f64` for precision.
-pub type Scalar = f64;
+use super::scalar::Scalar;
+
 
 /// A 2-dimensional vector.
 ///

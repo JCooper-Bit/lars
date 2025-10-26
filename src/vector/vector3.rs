@@ -2,7 +2,7 @@
 //!
 //! This module provides a simple 3D vector (`Vec3`) type with common operations used in
 //! computer graphics, ray tracing, and physics. Includes vector arithmetic, dot and cross products,
-//! normalization, and conversion to RGB colors.
+//! normalization and much more.
 
 use std::ops::Mul;
 use derive_more::{Add, Sub, Mul, Div, Neg, Constructor};
