@@ -13,6 +13,8 @@ use derive_more::{Add, Sub, Mul, Div, Neg, Constructor};
 ///
 /// # Examples
 /// ```
+/// 
+/// use LArs::Vec3;
 /// let a = Vec3::new(1.0, 0.0, 0.0);
 /// let b = Vec3::new(0.0, 1.0, 0.0);
 ///
@@ -34,6 +36,8 @@ impl Vec3 {
     ///
     /// # Examples
     /// ```
+    ///  
+    /// use LArs::Vec3;
     /// let a = Vec3::new(1.0, 2.0, 3.0);
     /// let b = Vec3::new(4.0, -5.0, 6.0);
     /// assert_eq!(a.dot(&b), 12.0);
@@ -46,6 +50,7 @@ impl Vec3 {
     ///
     /// # Examples
     /// ```
+    ///  use LArs::Vec3;
     /// let v = Vec3::new(3.0, 4.0, 0.0);
     /// assert_eq!(v.mag(), 5.0);
     /// ```
@@ -59,6 +64,7 @@ impl Vec3 {
     ///
     /// # Examples
     /// ```
+    /// use LArs::Vec3;
     /// let a = Vec3::new(1.0, 0.0, 0.0);
     /// let b = Vec3::new(0.0, 1.0, 0.0);
     /// assert_eq!(a.cross(&b), Vec3::new(0.0, 0.0, 1.0));
@@ -74,6 +80,7 @@ impl Vec3 {
     ///
     /// # Examples
     /// ```
+    ///  use LArs::Vec3;
     /// let v = Vec3::new(1.0, 2.0, 3.0);
     /// let squared = v.map(|x| x * x);
     /// assert_eq!(squared, Vec3::new(1.0, 4.0, 9.0));
@@ -97,6 +104,7 @@ impl Vec3 {
     ///
     /// # Examples
     /// ```
+    ///  use LArs::Vec3;
     /// let v = Vec3::new(3.0, 0.0, 0.0);
     /// assert_eq!(v.normalize(), Vec3::new(1.0, 0.0, 0.0));
     /// ```
@@ -124,6 +132,7 @@ impl Vec3 {
 ///
 /// # Examples
 /// ```
+///  use LArs::Vec3;
 /// let v = Vec3::new(1.0, 2.0, 3.0);
 /// let scaled = 2.0 * v;
 /// assert_eq!(scaled, Vec3::new(2.0, 4.0, 6.0));
@@ -145,6 +154,7 @@ impl Mul<Vec3> for f64 {
 ///
 /// # Examples
 /// ```
+///  use LArs::Vec3;
 /// let a = Vec3::new(1.0, 2.0, 3.0);
 /// let b = Vec3::new(2.0, 0.5, 4.0);
 /// assert_eq!(a * b, Vec3::new(2.0, 1.0, 12.0));
@@ -171,3 +181,42 @@ pub type Colour = Vec3;
 pub type Point3D = Vec3;
 
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_dot_product() {
+
+        let a = Vec3::new(1.0, 2.0, 3.0);
+        let b = Vec3::new(4.0, -5.0, 6.0);
+        assert_eq!(a.dot(&b), 12.0);
+    }
+
+    #[test]
+    fn test_cross_product() {
+        let a = Vec3::new(1.0, 0.0, 0.0);
+        let b = Vec3::new(0.0, 1.0, 0.0);
+        assert_eq!(a.cross(&b), Vec3::new(0.0, 0.0, 1.0));
+    }
+
+    #[test]
+    fn test_normalize() {
+        let v = Vec3::new(3.0, 4.0, 0.0);
+        let n = v.normalize();
+        assert!((n.mag() - 1.0).abs() < 1e-10);
+    }
+
+    #[test]
+    fn test_scalar_mul() {
+        let v = Vec3::new(1.0, 2.0, 3.0);
+        assert_eq!(2.0 * v, Vec3::new(2.0, 4.0, 6.0));
+    }
+
+    #[test]
+    fn test_component_mul() {
+        let a = Vec3::new(2.0, 3.0, 4.0);
+        let b = Vec3::new(1.0, 2.0, 3.0);
+        assert_eq!(a * b, Vec3::new(2.0, 6.0, 12.0));
+    }
+}
