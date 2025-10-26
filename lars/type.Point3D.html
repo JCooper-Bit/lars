@@ -7,7 +7,7 @@
 }</code></pre><h2 id="fields" class="fields section-header">Fields<a href="#fields" class="anchor">§</a></h2><span id="structfield.x" class="structfield section-header"><a href="#structfield.x" class="anchor field">§</a><code>x: <a class="primitive" href="https://doc.rust-lang.org/1.90.0/std/primitive.f64.html">f64</a></code></span><div class="docblock"><p>X component of the vector.</p>
 </div><span id="structfield.y" class="structfield section-header"><a href="#structfield.y" class="anchor field">§</a><code>y: <a class="primitive" href="https://doc.rust-lang.org/1.90.0/std/primitive.f64.html">f64</a></code></span><div class="docblock"><p>Y component of the vector.</p>
 </div><span id="structfield.z" class="structfield section-header"><a href="#structfield.z" class="anchor field">§</a><code>z: <a class="primitive" href="https://doc.rust-lang.org/1.90.0/std/primitive.f64.html">f64</a></code></span><div class="docblock"><p>Z component of the vector.</p>
-</div><h2 id="implementations" class="section-header">Implementations<a href="#implementations" class="anchor">§</a></h2><div id="implementations-list"><details class="toggle implementors-toggle" open><summary><section id="impl-Vec3" class="impl"><a class="src rightside" href="../src/lars/vector/vector3.rs.html#191-228">Source</a><a href="#impl-Vec3" class="anchor">§</a><h3 class="code-header">impl <a class="type" href="type.Point3D.html" title="type lars::Point3D">Point3D</a></h3></section></summary><div class="impl-items"><details class="toggle method-toggle" open><summary><section id="method.dist" class="method"><a class="src rightside" href="../src/lars/vector/vector3.rs.html#207-209">Source</a><h4 class="code-header">pub fn <a href="#method.dist" class="fn">dist</a>(&amp;self, other: &amp;<a class="type" href="type.Point3D.html" title="type lars::Point3D">Point3D</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/1.90.0/std/primitive.f64.html">f64</a></h4></section></summary><div class="docblock"><p>Finds the unsigned distance between <code>self</code> and another 3D point <code>Other</code>.</p>
+</div><h2 id="implementations" class="section-header">Implementations<a href="#implementations" class="anchor">§</a></h2><div id="implementations-list"><details class="toggle implementors-toggle" open><summary><section id="impl-Vec3" class="impl"><a class="src rightside" href="../src/lars/vector/vector3.rs.html#191-226">Source</a><a href="#impl-Vec3" class="anchor">§</a><h3 class="code-header">impl <a class="type" href="type.Point3D.html" title="type lars::Point3D">Point3D</a></h3></section></summary><div class="impl-items"><details class="toggle method-toggle" open><summary><section id="method.dist" class="method"><a class="src rightside" href="../src/lars/vector/vector3.rs.html#207-209">Source</a><h4 class="code-header">pub fn <a href="#method.dist" class="fn">dist</a>(&amp;self, other: &amp;<a class="type" href="type.Point3D.html" title="type lars::Point3D">Point3D</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/1.90.0/std/primitive.f64.html">f64</a></h4></section></summary><div class="docblock"><p>Finds the unsigned distance between <code>self</code> and another 3D point <code>Other</code>.</p>
 <p>#examples</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>lars::{Point3D};
@@ -18,15 +18,13 @@
 
 
 </code></pre></div>
-</div></details><details class="toggle method-toggle" open><summary><section id="method.dist_sq" class="method"><a class="src rightside" href="../src/lars/vector/vector3.rs.html#224-226">Source</a><h4 class="code-header">pub fn <a href="#method.dist_sq" class="fn">dist_sq</a>(&amp;self, other: &amp;<a class="type" href="type.Point3D.html" title="type lars::Point3D">Point3D</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/1.90.0/std/primitive.f64.html">f64</a></h4></section></summary><div class="docblock"><p>Finds the unsigned distance between <code>self</code> and another 3D point <code>Other</code>, squared</p>
+</div></details><details class="toggle method-toggle" open><summary><section id="method.dist_sq" class="method"><a class="src rightside" href="../src/lars/vector/vector3.rs.html#222-224">Source</a><h4 class="code-header">pub fn <a href="#method.dist_sq" class="fn">dist_sq</a>(&amp;self, other: &amp;<a class="type" href="type.Point3D.html" title="type lars::Point3D">Point3D</a>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/1.90.0/std/primitive.f64.html">f64</a></h4></section></summary><div class="docblock"><p>Finds the unsigned distance between <code>self</code> and another 3D point <code>Other</code>, squared</p>
 <p>#examples</p>
 
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>lars::Point3D;
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code>
+<span class="kw">use </span>lars::Point3D;
 <span class="kw">let </span>a = Point3D::new(<span class="number">2.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>);
 <span class="kw">let </span>b = Point3D::new(<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>);
 <span class="macro">assert_eq!</span>(a.dist_sq(<span class="kw-2">&amp;</span>b), <span class="number">4.0</span>)
-
-
-
 </code></pre></div>
 </div></details></div></details></div><script src="../type.impl/lars/struct.Vec3.js" data-self-path="lars::vector::vector3::Point3D" async></script></section></div></main></body></html>
