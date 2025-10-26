@@ -1,9 +1,8 @@
 [package]
-name = "LArs"
+name = "lars"
 version = "0.1.0"
 edition = "2024"
 
 # TODO - Once the module is finished, remove unused features
 [dependencies]
 derive_more = {version =  "2.0.1", features = ["full"] }
-image = "0.25.8"

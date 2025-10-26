@@ -1,4 +1,4 @@
-//! My implementation of a Vector3 struct within Rust.
+//! 2D vector math utilities.
 //!
 //! This module provides a simple 3D vector (`Vec3`) type with common operations used in
 //! computer graphics, ray tracing, and physics. Includes vector arithmetic, dot and cross products,
@@ -14,7 +14,7 @@ use derive_more::{Add, Sub, Mul, Div, Neg, Constructor};
 /// # Examples
 /// ```
 /// 
-/// use LArs::Vec3;
+/// use lars::Vec3;
 /// let a = Vec3::new(1.0, 0.0, 0.0);
 /// let b = Vec3::new(0.0, 1.0, 0.0);
 ///
@@ -32,12 +32,38 @@ pub struct Vec3 {
 }
 
 impl Vec3 {
+
+
+    /// Returns the **magnitude** (length) of the vector.
+    ///
+    /// # Examples
+    /// ```
+    ///  use lars::Vec3;
+    /// let v = Vec3::new(3.0, 4.0, 0.0);
+    /// assert_eq!(v.mag(), 5.0);
+    /// ```
+    pub fn mag(&self) -> f64 {
+        (self.x * self.x + self.y * self.y + self.z * self.z).sqrt()
+    }
+
+    /// Returns the **magnitude**  of the vector, squared.
+    ///
+    /// # Examples
+    /// ```
+    ///  use lars::Vec3;
+    /// let v = Vec3::new(3.0, 4.0, 0.0);
+    /// assert_eq!(v.mag_sq(), 25.0);
+    /// ```
+    pub fn mag_sq(&self) -> f64 {
+        self.x * self.x + self.y * self.y + self.z * self.z
+    }
+
     /// Returns the **dot product** between `self` and another [`Vec3`].
     ///
     /// # Examples
     /// ```
-    ///  
-    /// use LArs::Vec3;
+    ///
+    /// use lars::Vec3;
     /// let a = Vec3::new(1.0, 2.0, 3.0);
     /// let b = Vec3::new(4.0, -5.0, 6.0);
     /// assert_eq!(a.dot(&b), 12.0);
@@ -46,17 +72,6 @@ impl Vec3 {
         (self.x * other.x) + (self.y * other.y) + (self.z * other.z)
     }
 
-    /// Returns the **magnitude** (length) of the vector.
-    ///
-    /// # Examples
-    /// ```
-    ///  use LArs::Vec3;
-    /// let v = Vec3::new(3.0, 4.0, 0.0);
-    /// assert_eq!(v.mag(), 5.0);
-    /// ```
-    pub fn mag(&self) -> f64 {
-        (self.x * self.x + self.y * self.y + self.z * self.z).sqrt()
-    }
 
     /// Returns the **cross product** between `self` and another [`Vec3`].
     ///
@@ -64,7 +79,7 @@ impl Vec3 {
     ///
     /// # Examples
     /// ```
-    /// use LArs::Vec3;
+    /// use lars::Vec3;
     /// let a = Vec3::new(1.0, 0.0, 0.0);
     /// let b = Vec3::new(0.0, 1.0, 0.0);
     /// assert_eq!(a.cross(&b), Vec3::new(0.0, 0.0, 1.0));
@@ -80,7 +95,7 @@ impl Vec3 {
     ///
     /// # Examples
     /// ```
-    ///  use LArs::Vec3;
+    ///  use lars::Vec3;
     /// let v = Vec3::new(1.0, 2.0, 3.0);
     /// let squared = v.map(|x| x * x);
     /// assert_eq!(squared, Vec3::new(1.0, 4.0, 9.0));
@@ -104,27 +119,16 @@ impl Vec3 {
     ///
     /// # Examples
     /// ```
-    ///  use LArs::Vec3;
+    ///  use lars::Vec3;
     /// let v = Vec3::new(3.0, 0.0, 0.0);
     /// assert_eq!(v.normalize(), Vec3::new(1.0, 0.0, 0.0));
     /// ```
     pub fn normalize(&self) -> Vec3 {
-        self.map(|i| i / self.mag())
+        let m = self.mag();
+        self.map(|i| i / m)
     }
 }
 
-/// Converts a [`Vec3`] with components between `0.0` and `1.0`
-/// into an [`Rgb<u8>`] color value.
-///
-/// Each component is clamped to `[0.0, 1.0]` and scaled to `[0, 255]`.
-// impl From<Vec3> for Rgb<u8> {
-//     fn from(v: Vec3) -> Rgb<u8> {
-//         let r = (v.x.clamp(0.0, 1.0) * 255.0) as u8;
-//         let g = (v.y.clamp(0.0, 1.0) * 255.0) as u8;
-//         let b = (v.z.clamp(0.0, 1.0) * 255.0) as u8;
-//         Rgb { 0: [r, g, b] }
-//     }
-// }
 
 /// Implements scalar multiplication of a vector by a float (`f64`).
 ///
@@ -132,7 +136,7 @@ impl Vec3 {
 ///
 /// # Examples
 /// ```
-///  use LArs::Vec3;
+///  use lars::Vec3;
 /// let v = Vec3::new(1.0, 2.0, 3.0);
 /// let scaled = 2.0 * v;
 /// assert_eq!(scaled, Vec3::new(2.0, 4.0, 6.0));
@@ -154,7 +158,7 @@ impl Mul<Vec3> for f64 {
 ///
 /// # Examples
 /// ```
-///  use LArs::Vec3;
+///  use lars::Vec3;
 /// let a = Vec3::new(1.0, 2.0, 3.0);
 /// let b = Vec3::new(2.0, 0.5, 4.0);
 /// assert_eq!(a * b, Vec3::new(2.0, 1.0, 12.0));
@@ -181,10 +185,23 @@ pub type Colour = Vec3;
 pub type Point3D = Vec3;
 
 
+
+// TESTS
 #[cfg(test)]
 mod tests {
     use super::*;
 
+    #[test]
+    fn test_mag() {
+        let v = Vec3::new(1.0, 2.0, 2.0);
+        assert_eq!(v.mag(), 3.0);
+    }
+    #[test]
+    fn test_mag_sq() {
+        let v = Vec3::new(1.0, 2.0, 2.0);
+        assert_eq!(v.mag_sq(), 9.0);
+
+    }
     #[test]
     fn test_dot_product() {
 

@@ -1,4 +1,4 @@
-//! 2D Vector math utilities.
+//! 2D vector math utilities.
 //!
 //! This module provides a simple 2D vector type (`Vec2`) with common mathematical
 //! operations used in geometry, graphics, and game development.
@@ -20,7 +20,7 @@ pub type Scalar = f64;
 /// # Examples
 /// ```
 ///
-/// use LArs::Vec2;
+/// use lars::Vec2;
 /// let a = Vec2::new(3.0, 4.0);
 /// assert_eq!(a.mag(), 5.0);
 /// ```
@@ -33,6 +33,33 @@ pub struct Vec2 {
 }
 
 impl Vec2 {
+
+    /// Returns the **magnitude** (length) of the vector.
+    ///
+    /// # Examples
+    /// ```
+    ///
+    /// use lars::Vec2;
+    /// let v = Vec2::new(3.0, 4.0);
+    /// assert_eq!(v.mag(), 5.0);
+    /// ```
+    pub fn mag(&self) -> f64 {
+        (self.x * self.x + self.y * self.y).sqrt()
+    }
+
+    ///  Returns the **magnitude**  of the vector, squared.
+    ///
+    /// # Examples
+    /// ```
+    ///
+    /// use lars::Vec2;
+    /// let v = Vec2::new(3.0, 4.0);
+    /// assert_eq!(v.mag_sq(), 25.0);
+    /// ```
+    pub fn mag_sq(&self) -> f64 {
+        self.x * self.x + self.y * self.y
+    }
+
     /// Returns the **dot product** between `self` and another [`Vec2`].
     ///
     /// The dot product measures the cosine of the angle between two vectors.
@@ -40,26 +67,13 @@ impl Vec2 {
     /// # Examples
     /// ```
     ///
-    /// use LArs::Vec2;
+    /// use lars::Vec2;
     /// let a = Vec2::new(1.0, 2.0);
     /// let b = Vec2::new(3.0, 4.0);
     /// assert_eq!(a.dot(&b), 11.0);
     /// ```
     pub fn dot(&self, other: &Vec2) -> f64 {
         (self.x * other.x) + (self.y * other.y)
-    }
-
-    /// Returns the **magnitude** (length) of the vector.
-    ///
-    /// # Examples
-    /// ```
-    ///
-    /// use LArs::Vec2;
-    /// let v = Vec2::new(3.0, 4.0);
-    /// assert_eq!(v.mag(), 5.0);
-    /// ```
-    pub fn mag(&self) -> f64 {
-        (self.x * self.x + self.y * self.y).sqrt()
     }
 
     /// Returns the **scalar 2D cross product** between `self` and another [`Vec2`].
@@ -70,7 +84,7 @@ impl Vec2 {
     /// # Examples
     /// ```
     ///
-    /// use LArs::Vec2;
+    /// use lars::Vec2;
     /// let a = Vec2::new(1.0, 0.0);
     /// let b = Vec2::new(0.0, 1.0);
     /// assert_eq!(a.cross(&b), 1.0);
@@ -84,7 +98,7 @@ impl Vec2 {
     /// # Examples
     /// ```
     ///
-    /// use LArs::Vec2;
+    /// use lars::Vec2;
     /// let v = Vec2::new(1.0, 2.0);
     /// let squared = v.map(|x| x * x);
     /// assert_eq!(squared, Vec2::new(1.0, 4.0));
@@ -106,12 +120,13 @@ impl Vec2 {
     /// # Examples
     /// ```
     ///
-    /// use LArs::Vec2;
+    /// use lars::Vec2;
     /// let v = Vec2::new(3.0, 0.0);
     /// assert_eq!(v.normalize(), Vec2::new(1.0, 0.0));
     /// ```
     pub fn normalize(&self) -> Vec2 {
-        self.map(|i| i / self.mag())
+        let m = self.mag();
+        self.map(|i| i / m)
     }
 }
 
@@ -120,7 +135,7 @@ impl Vec2 {
 /// # Examples
 /// ```
 ///
-/// use LArs::Vec2;
+/// use lars::Vec2;
 /// let v = Vec2::new(1.0, 2.0);
 /// let scaled = 2.0 * v;
 /// assert_eq!(scaled, Vec2::new(2.0, 4.0));
@@ -140,7 +155,7 @@ impl Mul<Vec2> for f64 {
 /// # Examples
 /// ```
 ///
-/// use LArs::Vec2;
+/// use lars::Vec2;
 /// let a = Vec2::new(1.0, 2.0);
 /// let b = Vec2::new(3.0, 4.0);
 /// assert_eq!(a * b, Vec2::new(3.0, 8.0));
@@ -165,6 +180,17 @@ pub type Point2D = Vec2;
 mod tests {
     use super::*;
 
+    #[test]
+    fn test_mag() {
+        let v = Vec2::new(3.0, 4.0);
+        assert_eq!(v.mag(), 5.0);
+    }
+
+    #[test]
+    fn test_mag_sq() {
+        let v = Vec2::new(3.0, 4.0);
+        assert_eq!(v.mag_sq(), 25.0);
+    }
     #[test]
     fn test_dot() {
         let a = Vec2::new(1.0, 2.0);
