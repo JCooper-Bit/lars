@@ -11,7 +11,7 @@
 <a href=#11 id=11 data-nosnippet>11</a><span class="kw">use </span><span class="kw">super</span>::scalar::Scalar;
 <a href=#12 id=12 data-nosnippet>12</a>
 <a href=#13 id=13 data-nosnippet>13</a>
-<a href=#14 id=14 data-nosnippet>14</a><span class="doccomment">/// A 2-dimensional vector.
+<a href=#14 id=14 data-nosnippet>14</a><span class="doccomment">/// A 2-dimensional vector type
 <a href=#15 id=15 data-nosnippet>15</a>///
 <a href=#16 id=16 data-nosnippet>16</a>/// Provides common vector operations such as addition, subtraction, scalar and
 <a href=#17 id=17 data-nosnippet>17</a>/// component-wise multiplication, normalization, dot and cross products.
@@ -26,9 +26,9 @@
 <a href=#26 id=26 data-nosnippet>26</a></span><span class="attr">#[derive(Add, Sub, Div, Mul, Neg, Clone, Copy, Debug, PartialEq, PartialOrd, Constructor)]
 <a href=#27 id=27 data-nosnippet>27</a></span><span class="kw">pub struct </span>Vec2 {
 <a href=#28 id=28 data-nosnippet>28</a>    <span class="doccomment">/// X component of the vector.
-<a href=#29 id=29 data-nosnippet>29</a>    </span><span class="kw">pub </span>x: f64,
+<a href=#29 id=29 data-nosnippet>29</a>    </span><span class="kw">pub </span>x: Scalar,
 <a href=#30 id=30 data-nosnippet>30</a>    <span class="doccomment">/// Y component of the vector.
-<a href=#31 id=31 data-nosnippet>31</a>    </span><span class="kw">pub </span>y: f64,
+<a href=#31 id=31 data-nosnippet>31</a>    </span><span class="kw">pub </span>y: Scalar,
 <a href=#32 id=32 data-nosnippet>32</a>}
 <a href=#33 id=33 data-nosnippet>33</a>
 <a href=#34 id=34 data-nosnippet>34</a><span class="kw">impl </span>Vec2 {
@@ -50,7 +50,7 @@
 <a href=#50 id=50 data-nosnippet>50</a>    /// let v = Vec2::new(3.0, 4.0);
 <a href=#51 id=51 data-nosnippet>51</a>    /// assert_eq!(v.mag(), 5.0);
 <a href=#52 id=52 data-nosnippet>52</a>    /// ```
-<a href=#53 id=53 data-nosnippet>53</a>    </span><span class="kw">pub fn </span>mag(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64 {
+<a href=#53 id=53 data-nosnippet>53</a>    </span><span class="kw">pub fn </span>mag(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Scalar {
 <a href=#54 id=54 data-nosnippet>54</a>        (<span class="self">self</span>.x * <span class="self">self</span>.x + <span class="self">self</span>.y * <span class="self">self</span>.y).sqrt()
 <a href=#55 id=55 data-nosnippet>55</a>    }
 <a href=#56 id=56 data-nosnippet>56</a>
@@ -66,7 +66,7 @@
 <a href=#66 id=66 data-nosnippet>66</a>    /// let b = Vec2::new(3.0, 4.0);
 <a href=#67 id=67 data-nosnippet>67</a>    /// assert_eq!(a.dot(&amp;b), 11.0);
 <a href=#68 id=68 data-nosnippet>68</a>    /// ```
-<a href=#69 id=69 data-nosnippet>69</a>    </span><span class="kw">pub fn </span>dot(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Vec2) -&gt; f64 {
+<a href=#69 id=69 data-nosnippet>69</a>    </span><span class="kw">pub fn </span>dot(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Vec2) -&gt; Scalar {
 <a href=#70 id=70 data-nosnippet>70</a>        (<span class="self">self</span>.x * other.x) + (<span class="self">self</span>.y * other.y)
 <a href=#71 id=71 data-nosnippet>71</a>    }
 <a href=#72 id=72 data-nosnippet>72</a>
@@ -99,7 +99,7 @@
 <a href=#99 id=99 data-nosnippet>99</a>    /// ```
 <a href=#100 id=100 data-nosnippet>100</a>    </span><span class="kw">pub fn </span>map&lt;F&gt;(<span class="kw-2">&amp;</span><span class="self">self</span>, f: F) -&gt; Vec2
 <a href=#101 id=101 data-nosnippet>101</a>    <span class="kw">where
-<a href=#102 id=102 data-nosnippet>102</a>        </span>F: Fn(f64) -&gt; f64,
+<a href=#102 id=102 data-nosnippet>102</a>        </span>F: Fn(Scalar) -&gt; Scalar,
 <a href=#103 id=103 data-nosnippet>103</a>    {
 <a href=#104 id=104 data-nosnippet>104</a>        <span class="kw">let </span>fx = f(<span class="self">self</span>.x);
 <a href=#105 id=105 data-nosnippet>105</a>        <span class="kw">let </span>fy = f(<span class="self">self</span>.y);
@@ -134,7 +134,7 @@
 <a href=#134 id=134 data-nosnippet>134</a>    /// let v = Vec2::new(3.0, 4.0);
 <a href=#135 id=135 data-nosnippet>135</a>    /// assert_eq!(v.mag_sq(), 25.0);
 <a href=#136 id=136 data-nosnippet>136</a>    /// ```
-<a href=#137 id=137 data-nosnippet>137</a>    </span><span class="kw">pub fn </span>mag_sq(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; f64 {
+<a href=#137 id=137 data-nosnippet>137</a>    </span><span class="kw">pub fn </span>mag_sq(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Scalar {
 <a href=#138 id=138 data-nosnippet>138</a>        <span class="self">self</span>.x * <span class="self">self</span>.x + <span class="self">self</span>.y * <span class="self">self</span>.y
 <a href=#139 id=139 data-nosnippet>139</a>    }
 <a href=#140 id=140 data-nosnippet>140</a>
@@ -142,7 +142,7 @@
 <a href=#142 id=142 data-nosnippet>142</a>
 <a href=#143 id=143 data-nosnippet>143</a>}
 <a href=#144 id=144 data-nosnippet>144</a>
-<a href=#145 id=145 data-nosnippet>145</a><span class="doccomment">/// Implements **scalar multiplication** for `f64 * Vec2`.
+<a href=#145 id=145 data-nosnippet>145</a><span class="doccomment">/// Implements **scalar multiplication** for `Scalar * Vec2`.
 <a href=#146 id=146 data-nosnippet>146</a>///
 <a href=#147 id=147 data-nosnippet>147</a>/// # Examples
 <a href=#148 id=148 data-nosnippet>148</a>/// ```
@@ -203,7 +203,7 @@
 <a href=#203 id=203 data-nosnippet>203</a>    ///
 <a href=#204 id=204 data-nosnippet>204</a>    ///
 <a href=#205 id=205 data-nosnippet>205</a>    /// ```
-<a href=#206 id=206 data-nosnippet>206</a>    </span><span class="kw">pub fn </span>dist(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Point2D) -&gt; f64 {
+<a href=#206 id=206 data-nosnippet>206</a>    </span><span class="kw">pub fn </span>dist(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Point2D) -&gt; Scalar {
 <a href=#207 id=207 data-nosnippet>207</a>        (<span class="kw-2">*</span><span class="self">self </span>- <span class="kw-2">*</span>other).mag().abs()
 <a href=#208 id=208 data-nosnippet>208</a>    }
 <a href=#209 id=209 data-nosnippet>209</a>    <span class="doccomment">/// Finds the unsigned distance between `self` and another 3D point `Other`, squared
@@ -218,7 +218,7 @@
 <a href=#218 id=218 data-nosnippet>218</a>    /// assert_eq!(a.dist_sq(&amp;b), 4.0)
 <a href=#219 id=219 data-nosnippet>219</a>    ///
 <a href=#220 id=220 data-nosnippet>220</a>    /// ```
-<a href=#221 id=221 data-nosnippet>221</a>    </span><span class="kw">pub fn </span>dist_sq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Point2D) -&gt; f64 {
+<a href=#221 id=221 data-nosnippet>221</a>    </span><span class="kw">pub fn </span>dist_sq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Point2D) -&gt; Scalar {
 <a href=#222 id=222 data-nosnippet>222</a>        (<span class="kw-2">*</span><span class="self">self </span>- <span class="kw-2">*</span>other).mag_sq().abs()
 <a href=#223 id=223 data-nosnippet>223</a>    }
 <a href=#224 id=224 data-nosnippet>224</a>
