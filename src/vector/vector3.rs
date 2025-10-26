@@ -199,10 +199,6 @@ impl Point3D {
     /// let a = Point3D::new(1.0, 0.0, 0.0);
     /// let b = Point3D::new(0.0, 0.0, 0.0);
     /// assert_eq!(a.dist(&b), 1.0)
-    ///
-    ///
-    ///
-    ///
     /// ```
     pub fn dist(&self, other: &Point3D) -> f64 {
         (*self - *other).mag().abs()
@@ -241,7 +237,6 @@ mod tests {
     fn test_mag_sq() {
         let v = Vec3::new(1.0, 2.0, 2.0);
         assert_eq!(v.mag_sq(), 9.0);
-
     }
     #[test]
     fn test_dist() {
