@@ -4,6 +4,8 @@
 //! operations used in geometry, graphics, and game development.
 //!
 //! It supports vector addition, subtraction, scaling, dot and cross products, and normalization.
+
+use std::fmt;
 use std::ops::Mul;
 use derive_more::{Add, Sub, Mul, Div, Neg, Constructor};
 use super::scalar::Scalar;
@@ -30,6 +32,14 @@ pub struct Vec2 {
 }
 
 impl Vec2 {
+    /// A zero Vector (0.0, 0.0, 0.0)
+    pub const ZERO: Vec2 = Vec2 { x: 0.0, y: 0.0 };
+    /// A one Vector (1.0, 1.0, 1.0)
+    pub const ONE: Vec2 = Vec2 { x: 1.0, y: 1.0 };
+    /// A Unit Vector in X (1.0, 0.0, 0.0)
+    pub const UNIT_X: Vec2 = Vec2 { x: 1.0, y: 0.0 };
+    /// A Unit Vector in Y (0.0, 1.0, 0.0)
+    pub const UNIT_Y: Vec2 = Vec2 { x: 0.0, y: 1.0 };
 
     /// Returns the **magnitude** (length) of the vector.
     ///
@@ -213,6 +223,23 @@ impl Point2D {
     }
 
 }
+
+/// displays the vector in the form (X, Y)
+impl fmt::Display for Vec2 {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "({}, {})", self.x, self.y)
+    }
+}
+
+
+/// Returns (0.0, 0.0)
+impl Default for Vec2{
+    fn default() -> Self {
+        Self::ZERO
+    }
+}
+
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -277,5 +304,11 @@ mod tests {
         let a = Vec2::new(2.0, 3.0);
         let b = Vec2::new(4.0, 5.0);
         assert_eq!(a * b, Vec2::new(8.0, 15.0));
+    }
+
+    #[test]
+    fn test_default() {
+        let v = Vec2::default();
+        assert_eq!(v, Vec2::ZERO);
     }
 }

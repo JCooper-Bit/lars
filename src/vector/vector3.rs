@@ -5,6 +5,7 @@
 //! normalization and much more.
 
 use std::ops::Mul;
+use std::fmt;
 use derive_more::{Add, Sub, Mul, Div, Neg, Constructor};
 /// A 3-dimensional vector type.
 ///
@@ -32,6 +33,16 @@ pub struct Vec3 {
 }
 
 impl Vec3 {
+    /// A zero Vector (0.0, 0.0, 0.0)
+    pub const ZERO: Vec3 = Vec3 { x: 0.0, y: 0.0, z: 0.0 };
+    /// A one Vector (1.0, 1.0, 1.0)
+    pub const ONE: Vec3 = Vec3 { x: 1.0, y: 1.0, z: 1.0 };
+    /// A Unit Vector in X (1.0, 0.0, 0.0)
+    pub const UNIT_X: Vec3 = Vec3 { x: 1.0, y: 0.0, z: 0.0 };
+    /// A Unit Vector in Y (0.0, 1.0, 0.0)
+    pub const UNIT_Y: Vec3 = Vec3 { x: 0.0, y: 1.0, z: 0.0 };
+    /// A Unit Vector in Z (0.0, 0.0, 1.0)
+    pub const UNIT_Z: Vec3 = Vec3 { x: 0.0, y: 0.0, z: 1.0 };
 
 
     /// Returns the **magnitude** (length) of the vector.
@@ -155,6 +166,25 @@ impl Mul<Vec3> for f64 {
         }
     }
 }
+
+
+/// displays the vector in the form (X, Y, Z)
+
+impl fmt::Display for Vec3 {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "({}, {}, {})", self.x, self.y, self.z)
+    }
+}
+
+
+/// Returns (0.0, 0.0, 0.0)
+impl Default for Vec3 {
+    fn default() -> Self {
+        Self::ZERO
+    }
+}
+
+
 
 /// Implements **component-wise multiplication** between two [`Vec3`]s.
 ///
@@ -283,5 +313,11 @@ mod tests {
         let a = Vec3::new(2.0, 3.0, 4.0);
         let b = Vec3::new(1.0, 2.0, 3.0);
         assert_eq!(a * b, Vec3::new(2.0, 6.0, 12.0));
+    }
+    
+    #[test]
+    fn test_default() {
+        let v = Vec3::default();
+        assert_eq!(v, Vec3::ZERO);
     }
 }
