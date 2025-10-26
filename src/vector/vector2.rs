@@ -254,7 +254,12 @@ impl Default for Vec2{
 #[cfg(test)]
 mod tests {
     use super::*;
-
+    #[test]
+    fn test_add() {
+        let v1 = Vec2::ZERO;
+        let v2 = Vec2::ONE;
+        assert_eq!(v1 + v2, Vec2::ONE);
+    }
     #[test]
     fn test_mag() {
         let v = Vec2::new(3.0, 4.0);

@@ -1,4 +1,4 @@
-//! 2D vector math utilities.
+//! 3D vector math utilities.
 //!
 //! This module provides a simple 3D vector (`Vec3`) type with common operations used in
 //! computer graphics, ray tracing, and physics. Includes vector arithmetic, dot and cross products,
@@ -259,6 +259,12 @@ mod tests {
     use super::*;
 
     #[test]
+    fn test_add() {
+        let v1 = Vec3::ZERO;
+        let v2 = Vec3::ONE;
+        assert_eq!(v1 + v2, Vec3::ONE);
+    }
+    #[test]
     fn test_mag() {
         let v = Vec3::new(1.0, 2.0, 2.0);
         assert_eq!(v.mag(), 3.0);
@@ -314,7 +320,7 @@ mod tests {
         let b = Vec3::new(1.0, 2.0, 3.0);
         assert_eq!(a * b, Vec3::new(2.0, 6.0, 12.0));
     }
-    
+
     #[test]
     fn test_default() {
         let v = Vec3::default();
