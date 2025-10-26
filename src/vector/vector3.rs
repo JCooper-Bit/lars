@@ -7,6 +7,8 @@
 use std::ops::Mul;
 use std::fmt;
 use derive_more::{Add, Sub, Mul, Div, Neg, Constructor};
+use crate::Scalar;
+
 /// A 3-dimensional vector type.
 ///
 /// Provides common vector operations such as addition, subtraction, scalar and component-wise
@@ -25,11 +27,11 @@ use derive_more::{Add, Sub, Mul, Div, Neg, Constructor};
 #[derive(Add, Sub, Mul, Div, Neg, Clone, Copy, Debug, PartialEq, PartialOrd, Constructor)]
 pub struct Vec3 {
     /// X component of the vector.
-    pub x: f64,
+    pub x: Scalar,
     /// Y component of the vector.
-    pub y: f64,
+    pub y: Scalar,
     /// Z component of the vector.
-    pub z: f64,
+    pub z: Scalar,
 }
 
 impl Vec3 {
@@ -53,7 +55,7 @@ impl Vec3 {
     /// let v = Vec3::new(3.0, 4.0, 0.0);
     /// assert_eq!(v.mag(), 5.0);
     /// ```
-    pub fn mag(&self) -> f64 {
+    pub fn mag(&self) -> Scalar {
         (self.x * self.x + self.y * self.y + self.z * self.z).sqrt()
     }
 
@@ -67,7 +69,7 @@ impl Vec3 {
     /// let b = Vec3::new(4.0, -5.0, 6.0);
     /// assert_eq!(a.dot(&b), 12.0);
     /// ```
-    pub fn dot(&self, other: &Vec3) -> f64 {
+    pub fn dot(&self, other: &Vec3) -> Scalar {
         (self.x * other.x) + (self.y * other.y) + (self.z * other.z)
     }
 
@@ -101,7 +103,7 @@ impl Vec3 {
     /// ```
     pub fn map<F>(&self, f: F) -> Vec3
     where
-        F: Fn(f64) -> f64,
+        F: Fn(Scalar) -> Scalar,
     {
         let fx = f(self.x);
         let fy = f(self.y);
@@ -137,7 +139,7 @@ impl Vec3 {
     /// let v = Vec3::new(3.0, 4.0, 0.0);
     /// assert_eq!(v.mag_sq(), 25.0);
     /// ```
-    pub fn mag_sq(&self) -> f64 {
+    pub fn mag_sq(&self) -> Scalar {
         self.x * self.x + self.y * self.y + self.z * self.z
     }
 
@@ -145,9 +147,9 @@ impl Vec3 {
 }
 
 
-/// Implements scalar multiplication of a vector by a float (`f64`).
+/// Implements scalar multiplication of a vector by a float (`f64`) or Scalar
 ///
-/// This enables `f64 * Vec3` syntax.
+/// This enables `Scalar * Vec3` syntax.
 ///
 /// # Examples
 /// ```
@@ -166,7 +168,6 @@ impl Mul<Vec3> for f64 {
         }
     }
 }
-
 
 /// displays the vector in the form (X, Y, Z)
 
@@ -230,7 +231,7 @@ impl Point3D {
     /// let b = Point3D::new(0.0, 0.0, 0.0);
     /// assert_eq!(a.dist(&b), 1.0)
     /// ```
-    pub fn dist(&self, other: &Point3D) -> f64 {
+    pub fn dist(&self, other: &Point3D) -> Scalar {
         (*self - *other).mag().abs()
     }
     /// Finds the unsigned distance between `self` and another 3D point `Other`, squared
@@ -245,7 +246,7 @@ impl Point3D {
     /// assert_eq!(a.dist_sq(&b), 4.0)
     ///
     /// ```
-    pub fn dist_sq(&self, other: &Point3D) -> f64 {
+    pub fn dist_sq(&self, other: &Point3D) -> Scalar {
         (*self - *other).mag_sq().abs()
     }
 
@@ -314,10 +315,11 @@ mod tests {
         let b = Vec3::new(1.0, 2.0, 3.0);
         assert_eq!(a * b, Vec3::new(2.0, 6.0, 12.0));
     }
-    
+
     #[test]
     fn test_default() {
         let v = Vec3::default();
         assert_eq!(v, Vec3::ZERO);
     }
 }
+

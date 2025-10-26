@@ -11,7 +11,7 @@ use derive_more::{Add, Sub, Mul, Div, Neg, Constructor};
 use super::scalar::Scalar;
 
 
-/// A 2-dimensional vector.
+/// A 2-dimensional vector type
 ///
 /// Provides common vector operations such as addition, subtraction, scalar and
 /// component-wise multiplication, normalization, dot and cross products.
@@ -26,9 +26,9 @@ use super::scalar::Scalar;
 #[derive(Add, Sub, Div, Mul, Neg, Clone, Copy, Debug, PartialEq, PartialOrd, Constructor)]
 pub struct Vec2 {
     /// X component of the vector.
-    pub x: f64,
+    pub x: Scalar,
     /// Y component of the vector.
-    pub y: f64,
+    pub y: Scalar,
 }
 
 impl Vec2 {
@@ -50,7 +50,7 @@ impl Vec2 {
     /// let v = Vec2::new(3.0, 4.0);
     /// assert_eq!(v.mag(), 5.0);
     /// ```
-    pub fn mag(&self) -> f64 {
+    pub fn mag(&self) -> Scalar {
         (self.x * self.x + self.y * self.y).sqrt()
     }
 
@@ -66,7 +66,7 @@ impl Vec2 {
     /// let b = Vec2::new(3.0, 4.0);
     /// assert_eq!(a.dot(&b), 11.0);
     /// ```
-    pub fn dot(&self, other: &Vec2) -> f64 {
+    pub fn dot(&self, other: &Vec2) -> Scalar {
         (self.x * other.x) + (self.y * other.y)
     }
 
@@ -99,7 +99,7 @@ impl Vec2 {
     /// ```
     pub fn map<F>(&self, f: F) -> Vec2
     where
-        F: Fn(f64) -> f64,
+        F: Fn(Scalar) -> Scalar,
     {
         let fx = f(self.x);
         let fy = f(self.y);
@@ -134,7 +134,7 @@ impl Vec2 {
     /// let v = Vec2::new(3.0, 4.0);
     /// assert_eq!(v.mag_sq(), 25.0);
     /// ```
-    pub fn mag_sq(&self) -> f64 {
+    pub fn mag_sq(&self) -> Scalar {
         self.x * self.x + self.y * self.y
     }
 
@@ -142,7 +142,7 @@ impl Vec2 {
 
 }
 
-/// Implements **scalar multiplication** for `f64 * Vec2`.
+/// Implements **scalar multiplication** for `Scalar * Vec2`.
 ///
 /// # Examples
 /// ```
@@ -203,7 +203,7 @@ impl Point2D {
     ///
     ///
     /// ```
-    pub fn dist(&self, other: &Point2D) -> f64 {
+    pub fn dist(&self, other: &Point2D) -> Scalar {
         (*self - *other).mag().abs()
     }
     /// Finds the unsigned distance between `self` and another 3D point `Other`, squared
@@ -218,7 +218,7 @@ impl Point2D {
     /// assert_eq!(a.dist_sq(&b), 4.0)
     ///
     /// ```
-    pub fn dist_sq(&self, other: &Point2D) -> f64 {
+    pub fn dist_sq(&self, other: &Point2D) -> Scalar {
         (*self - *other).mag_sq().abs()
     }
 
