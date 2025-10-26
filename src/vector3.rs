@@ -1,4 +1,4 @@
-//! My implementation of a Vector struct within Rust.
+//! My implementation of a Vector3 struct within Rust.
 //!
 //! This module provides a simple 3D vector (`Vec3`) type with common operations used in
 //! computer graphics, ray tracing, and physics. Includes vector arithmetic, dot and cross products,
@@ -161,11 +161,13 @@ impl Mul<Vec3> for Vec3 {
 }
 
 /// Represents an RGB color with values between `0.0` and `1.0`.
-///
+/// Will eventually contain support for conversions with the image crate
 /// Alias for [`Vec3`].
 pub type Colour = Vec3;
 
 /// Represents a 3D point in space.
 ///
 /// Alias for [`Vec3`].
-pub type Point = Vec3;
+pub type Point3D = Vec3;
+
+
