@@ -22,7 +22,7 @@ use crate::Vec2;
 ///
 /// # Examples
 /// ```
-/// use LArs::{Mat2, Vec2};
+/// use lars::{Mat2, Vec2};
 ///
 /// let m = Mat2::new(1.0, 2.0, 3.0, 4.0);
 /// let v = Vec2::new(1.0, 1.0);
@@ -67,7 +67,7 @@ impl Mat2 {
     ///
     /// # Examples
     /// ```
-    /// use LArs::Mat2;
+    /// use lars::Mat2;
     /// let m = Mat2::new(7.0, 2.0, 6.0, 2.0);
     /// assert_eq!(m.determinant(), 2.0);
     /// ```
@@ -87,7 +87,7 @@ impl Mat2 {
     ///
     /// # Examples
     /// ```
-    /// use LArs::Mat2;
+    /// use lars::Mat2;
     /// let m = Mat2::new(7.0, 2.0, 6.0, 2.0);
     /// assert_eq!(m.inverse(), Mat2::new(1.0, -1.0, -3.0, 3.5));
     /// ```
@@ -103,7 +103,7 @@ impl Mat2 {
 ///
 /// # Examples
 /// ```
-/// use LArs::Mat2;
+/// use lars::Mat2;
 /// let m = Mat2::new(1.0, 2.0, 3.0, 4.0);
 /// assert_eq!(m * 2.0, Mat2::new(2.0, 4.0, 6.0, 8.0));
 /// ```
@@ -118,7 +118,7 @@ impl Mul<f64> for Mat2 {
 ///
 /// # Examples
 /// ```
-/// use LArs::Mat2;
+/// use lars::Mat2;
 /// let m = Mat2::new(1.0, 2.0, 3.0, 4.0);
 /// assert_eq!(2.0 * m, Mat2::new(2.0, 4.0, 6.0, 8.0));
 /// ```
@@ -142,7 +142,7 @@ impl Mul<Mat2> for f64 {
 ///
 /// # Examples
 /// ```
-/// use LArs::{Mat2, Vec2};
+/// use lars::{Mat2, Vec2};
 /// let m = Mat2::new(1.0, 2.0, 3.0, 4.0);
 /// let v = Vec2::new(1.0, 1.0);
 /// assert_eq!(m * v, Vec2::new(3.0, 7.0));
@@ -170,7 +170,7 @@ impl Mul<Vec2> for Mat2 {
 ///
 /// # Examples
 /// ```
-/// use LArs::Mat2;
+/// use lars::Mat2;
 /// let a = Mat2::IDENTITY;
 /// let b = Mat2::new(1.0, 2.0, 3.0, 4.0);
 /// assert_eq!(a * b, b);
