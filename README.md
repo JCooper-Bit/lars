@@ -81,11 +81,10 @@ src/
  ├── vector/
  │    ├── mod.rs
  │    ├── vec2.rs   # ✅ Implemented
- │    ├── scalar.rs # ✅ Implemented
  │    └── vec3.rs   # ✅ Implemented
  ├── matrix/
  │    ├── mod.rs
- │    ├── mat2.rs   # ⏳ Planned
+ │    ├── mat2.rs   # ✅ Implemented
  │    └── mat3.rs   # ⏳ Planned
  ├── traits.rs      # ⏳ Planned
  └── transformations.rs  # ⏳ Planned
