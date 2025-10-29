@@ -12,7 +12,7 @@ Alongside mathematical and conceptual explanations, each task has a correspondin
 
 The guides are written with rust in mind, but it would not be hard to adapt them to any language you wish to use.
 
-You can access the articles [here](/guides/vec2_guide.md) (Github sites to be set up soon)
+You can access the articles [here](https://docsify-this.net/?basePath=https://raw.githubusercontent.com/JCooper-Bit/lars/master/guides&homepage=vec2_guide.md&toc=true#/) (Github sites to be set up soon)
 
 ---
 

@@ -86,7 +86,7 @@ pub const UNIT_Y: Vec2 = Vec2 { x: 0.0, y: 1.0 };
 ---
 
 ##  Task 2: Computing Magnitude (Vector Length)
-
+NEXT
 ---
 ##  Task 3: Vector Arithmetic
 
