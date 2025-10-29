@@ -1,6 +1,4 @@
-# vec2_learning_challenges.md
-
-# 🧭 lars Learning Series - Part 1
+# lars Learning Series - Part 1
 ## Building a 2D Vector Type in Rust
 
 ---
@@ -53,19 +51,37 @@ Vectors are foundational in:
 - Computer graphics (movement, transformations)  
 - Game development (positions, rotations, collision detection)
 
-Rust’s strong type system and operator traits make it ideal for implementing mathematical objects safely and efficiently.
-
 ---
 
 ##  Task 1: Defining a 2D Vector Type
 
 First off, we need to create a Rust struct called `Vec2` to represent a 2D vector.
 - It should contain `(x,y)` variables
-- You should [derive](https://doc.rust-lang.org/rust-by-example/trait/derive.html) common traits such as `Clone`, `Copy`, `Debug`, `PartialEq` and `Constructor`
+- You should [Derive](https://doc.rust-lang.org/rust-by-example/trait/derive.html) common traits such as `Clone`, `Copy`, `Debug`, `PartialEq` and `Constructor`
 - Finally, you should define a few useful common constant vectors such as `ZERO`, `ONE` and **unit** vectors for the x and y directions.
 
 
 This sets the foundation for all vector operations.
+<details>
+<summary>Solution</summary>
+
+```rust
+#[derive(Add, Sub, Div, Mul, Neg, Clone, Copy, Debug, PartialEq, PartialOrd, Constructor)]
+pub struct Vec2 {
+pub x: f64,
+pub y: f64,
+}
+
+
+impl Vec2 {
+pub const ZERO: Vec2 = Vec2 { x: 0.0, y: 0.0 };
+pub const ONE: Vec2 = Vec2 { x: 1.0, y: 1.0 };
+pub const UNIT_X: Vec2 = Vec2 { x: 1.0, y: 0.0 };
+pub const UNIT_Y: Vec2 = Vec2 { x: 0.0, y: 1.0 };
+}
+``` 
+</details>
+
 
 ---
 
