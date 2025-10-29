@@ -60,19 +60,6 @@ println!("Cross: {}", a.cross(&b)); // 1
 
 ---
 
-## 🧱 Planned Additions (short term)
-
-
-| Feature | Description |
-|----------|--------------|
-| **Mat2**, **Mat3**, **Mat4** | Matrices for 2×2, 3×3, and 4×4 linear transformations. |
-| **Matrix Operations** | Addition, multiplication, transpose, determinant, inverse. |
-| **Transformations** | Rotation, translation, scaling (especially for 2D/3D). |
-| **Trait Abstractions** | Common traits (`Dot`, `Normalize`, `Magnitude`, etc.) for generic math interfaces. |
-
----
-
-
 ## 📦 Project Structure
 
 ```
