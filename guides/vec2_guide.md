@@ -409,8 +409,9 @@ mod tests {
 // You can add more tests as needed, such as ones for commutativity, associativity, etc.
 }
 ```
----
+</details>
 
+---
 ##  Conclusion and Next Steps
 
 Congratulations! You have successfully implemented a basic 2D vector type in Rust with essential operations and tests. This `Vec2` struct can now serve as a foundation for more complex mathematical operations and applications in graphics, physics, and game development.
