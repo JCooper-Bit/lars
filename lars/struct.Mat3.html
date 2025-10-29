@@ -50,10 +50,10 @@
 <span class="macro">assert_eq!</span>(m.determinant(), -<span class="number">12.0</span>);</code></pre></div>
 </div></details><details class="toggle method-toggle" open><summary><section id="method.inverse" class="method"><a class="src rightside" href="../src/lars/matrix/mat3.rs.html#118-136">Source</a><h4 class="code-header">pub fn <a href="#method.inverse" class="fn">inverse</a>(&amp;self) -&gt; <a class="struct" href="struct.Mat3.html" title="struct lars::Mat3">Mat3</a></h4></section></summary><div class="docblock"><p>Returns the <strong>inverse</strong> of the matrix, if it exists.</p>
 <p>Computed as:
-M⁻¹ = (1/det(M)) * adj(M)</p>
-
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code>     <span class="number">1        </span>| ei - fh   ch - bi   bf - ce |</code></pre></div>
-<p>M⁻¹ = —––  x  | fg - di   ai - cg   cd - af |
+M⁻¹ = (1/det(M)) * adj(M)
+/
+1        | ei - fh   ch - bi   bf - ce |
+M⁻¹ = —––  x  | fg - di   ai - cg   cd - af |
 det(M)     | dh - eg   bg - ah   ae - bd |</p>
 <h5 id="panics"><a class="doc-anchor" href="#panics">§</a>Panics</h5>
 <p>Panics if the matrix is singular (determinant = 0).</p>
