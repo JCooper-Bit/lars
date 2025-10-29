@@ -12,7 +12,7 @@ As well as mathematical and conceptual explanations, each task has a correspondi
 
 The guides are written with rust in mind, but it would not be hard to adapt them to any language you wish to use.
 
-You can access the articles [here](https://docsify-this.net/?basePath=https://raw.githubusercontent.com/JCooper-Bit/lars/master/guides&homepage=vec2_guide.md&toc=true#/) (Github sites to be set up soon)
+You can access the articles [here](https://jcooper-bit.github.io/lars-site/)
 
 ---
 
@@ -26,7 +26,14 @@ You can access the articles [here](https://docsify-this.net/?basePath=https://ra
 - Functional mapping (`map`)
 - Unit tests and full documentation examples
 
-.Example:
+✅ **Matrices (`Mat2`, `Mat3`)**
+- Addition, subtraction
+- Scalar,Vector and Matrix multiplication
+- Determinants
+- Inversion (where applicable)
+- Unit tests and full documentation examples
+
+Example:
 ```rust
 use lars::Vec2;
 
