@@ -101,9 +101,11 @@ impl Mat3 {
     /// Returns the **inverse** of the matrix, if it exists.
     ///
     /// Computed as:
-    /// \[
-    /// M^{-1} = \frac{1}{\det(M)} \begin{bmatrix} ei - fh & ch - bi & bf - ce \\ fg - di & ai - cg & cd - af \\ dh - eg & bg - ah & ae - bd \end{bmatrix}
-    /// \]
+    /// M⁻¹ = (1/det(M)) * adj(M)
+    ///
+    ///          1        | ei - fh   ch - bi   bf - ce |
+    /// M⁻¹ = -------  x  | fg - di   ai - cg   cd - af |
+    ///        det(M)     | dh - eg   bg - ah   ae - bd |
     ///
     /// # Panics
     /// Panics if the matrix is singular (determinant = 0).
