@@ -1,6 +1,6 @@
 # 🧮 Lars — Learning Algebra in Rust!
 
-**Lars** (Learning Algebra in Rust) is a learning-focused Rust crate that provides simple yet powerful linear algebra utilities built from first principles by a student currently going through Linear Algebra classes.
+**Lars** (Linear Algebra in Rust) is a learning-focused Rust crate that provides simple yet powerful linear algebra utilities built from first principles by a student currently going through Linear Algebra classes.
 
 The goal of this project is to **implement linear algebra concepts** (vectors, matrices, transformations) from scratch in Rust, to deeply understand both the **math** and **systems-level programming** behind them.
 
@@ -16,7 +16,7 @@ You can access the articles [here](https://jcooper-bit.github.io/lars-site/)
 
 ---
 
-## ✨ Features (Current)
+## ✨ Current Features
 
 ✅ **Vectors (`Vec2`, `Vec3`)**
 - Addition, subtraction, negation
@@ -79,15 +79,12 @@ src/
  ├── matrix/
  │    ├── mod.rs
  │    ├── mat2.rs   # ✅ Implemented
- │    └── mat3.rs   # ⏳ Planned
+ │    └── mat3.rs   # ✅ Implemented
  ├── traits.rs      # ⏳ Planned
  └── transformations.rs  # ⏳ Planned
 ```
 
 ---
 
-## 🤝 Contributing
-
-This is primarily a **personal learning project**, but suggestions and PRs are of course always welcome,  especially those that improve mathematical correctness, numerical stability, or Rust best practices.
-
----
+## Authors 
+[JCooper-bit](https://github.com/JCooper-Bit) (Me)
