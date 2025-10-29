@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"struct":["Mat2","Vec2","Vec3"],"type":["Colour","Point2D","Point3D"]};
+window.SIDEBAR_ITEMS = {"struct":["Mat2","Mat3","Vec2","Vec3"],"type":["Colour","Point2D","Point3D"]};
