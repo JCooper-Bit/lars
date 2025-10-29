@@ -32,7 +32,7 @@ Additionally, you may see the unit vector for the x direction written as ![\hat 
 
 Therefore, to express a vector with x-component 3 and y-component 4, with unit vectors, we can write:
 
-![\mathbf v = 4 \hat x + 4 \hat y](./equations/vec2/vector_with_unit_vectors.png)
+![\mathbf v = 3 \hat i + 4 \hat j](./equations/vec2/vector_with_unit_vectors.png)
 
 ### Magnitude
 ![Diagram showing vector magnitude](./images/vectordecomp.webp)
@@ -64,9 +64,9 @@ Vectors can be multiplied or divided by a scalar (a single number) by multiplyin
 
 The scalar multiplication and division of this vector by a scalar k is defined as:
 
-![k \times \mathbf v = \begin{bmatrix} k \times x \\ k \times y \\ \end{bmatrix}](./equations/vec2/scalar_multiplication.png)
+![k \times \mathbf a = \begin{bmatrix} k \times x \\ k \times y \\ \end{bmatrix}](./equations/vec2/scalar_multiplication.png)
 
-![\frac{\mathbf v}{k} = \begin{bmatrix} \frac{x}{k} \\ \frac{y}{k} \\ \end{bmatrix}](./equations/vec2/scalar_division.png)
+![\frac{\mathbf a}{k} = \begin{bmatrix} \frac{x}{k} \\ \frac{y}{k} \\ \end{bmatrix}](./equations/vec2/scalar_division.png)
 
 ### The Dot Product
 The dot product is a method for multiplying 2 vectors, it is notated mathematically as follows:
@@ -79,10 +79,11 @@ The first method:
 
 ![\mathbf a \cdot \mathbf b = |\mathbf a | \times |\mathbf b| \times cos(\theta)](./equations/vec2/dot_product_1.png)
 
-![|\mathbf a | \, is \, the \, magnitude \, of  \, \mathbf a \\
-|\mathbf b | \, is \, the \, magnitude \, of  \, \mathbf b \\](equations/vec2/dot%20product_1_1.png)
+![|\mathbf a | \, is \, the \, magnitude \, of  \, \mathbf a \\](equations/vec2/dot_product_1_1.png)
 
-![\theta \, is \, the \, angle \, between \, \mathbf a \, and \, \mathbf b](equations/vec2/dot_product_1_2.png)
+![|\mathbf b | \, is \, the \, magnitude \, of  \, \mathbf b \\](equations/vec2/dot_product_1_2.png)
+
+![\theta \, is \, the \, angle \, between \, \mathbf a \, and \, \mathbf b](equations/vec2/dot_product_1_3.png)
 
 The second method:
 
@@ -135,7 +136,7 @@ pub const UNIT_Y: Vec2 = Vec2 { x: 0.0, y: 1.0 };
 ---
 
 ##  Task 2: Computing Magnitude (Vector Length)
-NEXT
+
 ---
 ##  Task 3: Vector Arithmetic
 
