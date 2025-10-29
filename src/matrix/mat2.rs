@@ -7,9 +7,9 @@
 //! This type is designed to pair naturally with the [`Vec2`] struct
 //! for 2D linear transformations.
 
-use std::ops::Mul;
-use derive_more::{Constructor, Add, Sub};
 use crate::Vec2;
+use derive_more::{Add, Constructor, Sub, Div};
+use std::ops::Mul;
 
 /// A 2×2 matrix of `f64` values.
 ///
@@ -24,12 +24,12 @@ use crate::Vec2;
 /// ```
 /// use lars::{Mat2, Vec2};
 ///
-/// let m = Mat2::new(1.0, 2.0, 3.0, 4.0);
-/// let v = Vec2::new(1.0, 1.0);
+/// let m = Mat2::IDENTITY;
+/// let v = Vec2::ONE;
 ///
-/// assert_eq!(m * v, Vec2::new(3.0, 7.0));
+/// assert_eq!(m * v, v);
 /// ```
-#[derive(Constructor, Copy, Clone, Debug, Add, Sub, PartialEq, PartialOrd)]
+#[derive(Constructor, Copy, Clone, Debug, Add, Sub, PartialOrd, Div)]
 pub struct Mat2 {
     /// Top-left element.
     pub a: f64,
@@ -39,6 +39,17 @@ pub struct Mat2 {
     pub c: f64,
     /// Bottom-right element.
     pub d: f64,
+}
+
+const EPSILON: f64 = 1e-9;
+
+impl PartialEq for Mat2 {
+    fn eq(&self, other: &Self) -> bool {
+        (self.a - other.a).abs() < EPSILON &&
+        (self.b - other.b).abs() < EPSILON &&
+        (self.c - other.c).abs() < EPSILON &&
+        (self.d - other.d).abs() < EPSILON
+    }
 }
 
 impl Mat2 {
@@ -92,7 +103,11 @@ impl Mat2 {
     /// assert_eq!(m.inverse(), Mat2::new(1.0, -1.0, -3.0, 3.5));
     /// ```
     pub fn inverse(&self) -> Mat2 {
+        if self.determinant() == 0.0 {
+            panic!("Matrix is singular and cannot be inverted.");
+        };
         let rec_det = 1.0 / self.determinant();
+
         rec_det * Mat2::new(self.d, -self.b, -self.c, self.a)
     }
 }
@@ -238,5 +253,14 @@ mod tests {
     fn test_inverse() {
         let m = Mat2::new(7.0, 2.0, 6.0, 2.0);
         assert_eq!(m.inverse(), Mat2::new(1.0, -1.0, -3.0, 3.5))
+    }
+
+    #[test]
+    fn test_inverse_singular() {
+        let m = Mat2::new(1.0, 2.0, 2.0, 4.0);
+        let result = std::panic::catch_unwind(|| {
+            m.inverse();
+        });
+        assert!(result.is_err());
     }
 }

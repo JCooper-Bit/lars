@@ -5,10 +5,10 @@
 //!
 //! It supports vector addition, subtraction, scaling, dot and cross products, and normalization.
 
+use crate::Mat2;
+use derive_more::{Add, Constructor, Div, Mul, Neg, Sub};
 use std::fmt;
 use std::ops::Mul;
-use derive_more::{Add, Sub, Mul, Div, Neg, Constructor};
-use crate::Mat2;
 
 /// A 2-dimensional vector type
 ///
@@ -22,12 +22,20 @@ use crate::Mat2;
 /// let a = Vec2::new(3.0, 4.0);
 /// assert_eq!(a.mag(), 5.0);
 /// ```
-#[derive(Add, Sub, Div, Mul, Neg, Clone, Copy, Debug, PartialEq, PartialOrd, Constructor)]
+#[derive(Add, Sub, Div, Mul, Neg, Clone, Copy, Debug, PartialOrd, Constructor)]
 pub struct Vec2 {
     /// X component of the vector.
     pub x: f64,
     /// Y component of the vector.
     pub y: f64,
+}
+
+const EPSILON: f64 = 1e-9;
+
+impl PartialEq for Vec2 {
+    fn eq(&self, other: &Self) -> bool {
+        (self.x - other.x).abs() < EPSILON && (self.y - other.y).abs() < EPSILON
+    }
 }
 
 impl Vec2 {
@@ -136,9 +144,6 @@ impl Vec2 {
     pub fn mag_sq(&self) -> f64 {
         self.x * self.x + self.y * self.y
     }
-
-
-
 }
 
 /// Implements **scalar multiplication** for `f64 * Vec2`.
@@ -184,14 +189,12 @@ impl Mul<Vec2> for Vec2 {
 impl Mul<Mat2> for Vec2 {
     type Output = Vec2;
     fn mul(self, m: Mat2) -> Vec2 {
-
-        let x = m.a*self.x + m.b*self.y;
-        let y = m.c*self.x + m.d*self.y;
+        let x = m.a * self.x + m.b * self.y;
+        let y = m.c * self.x + m.d * self.y;
 
         Vec2::new(x, y)
     }
 }
-
 
 /// Represents a 2D point in space.
 ///
@@ -199,7 +202,6 @@ impl Mul<Mat2> for Vec2 {
 pub type Point2D = Vec2;
 
 impl Point2D {
-
     /// Finds the unsigned distance between `self` and another 3D point `Other`.
     ///
     /// #examples
@@ -232,7 +234,6 @@ impl Point2D {
     pub fn dist_sq(&self, other: &Point2D) -> f64 {
         (*self - *other).mag_sq().abs()
     }
-
 }
 
 /// displays the vector in the form (X, Y)
@@ -242,14 +243,12 @@ impl fmt::Display for Vec2 {
     }
 }
 
-
 /// Returns (0.0, 0.0)
-impl Default for Vec2{
+impl Default for Vec2 {
     fn default() -> Self {
         Self::ZERO
     }
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -286,14 +285,12 @@ mod tests {
         assert_eq!(a.dist_sq(&b), 4.0);
     }
 
-
     #[test]
     fn test_dot() {
         let a = Vec2::new(1.0, 2.0);
         let b = Vec2::new(3.0, 4.0);
         assert_eq!(a.dot(&b), 11.0);
     }
-
 
     #[test]
     fn test_cross() {

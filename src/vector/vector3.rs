@@ -4,9 +4,11 @@
 //! computer graphics, ray tracing, and physics. Includes vector arithmetic, dot and cross products,
 //! normalization and much more.
 
-use std::ops::Mul;
+use derive_more::{Add, Constructor, Div, Mul, Neg, Sub};
 use std::fmt;
-use derive_more::{Add, Sub, Mul, Div, Neg, Constructor};
+use std::ops::Mul;
+use crate::Mat3;
+
 /// A 3-dimensional vector type.
 ///
 /// Provides common vector operations such as addition, subtraction, scalar and component-wise
@@ -14,7 +16,7 @@ use derive_more::{Add, Sub, Mul, Div, Neg, Constructor};
 ///
 /// # Examples
 /// ```
-/// 
+///
 /// use lars::Vec3;
 /// let a = Vec3::new(1.0, 0.0, 0.0);
 /// let b = Vec3::new(0.0, 1.0, 0.0);
@@ -22,7 +24,7 @@ use derive_more::{Add, Sub, Mul, Div, Neg, Constructor};
 /// let cross = a.cross(&b); // Vec3 { x: 0.0, y: 0.0, z: 1.0 }
 /// let dot = a.dot(&b); // 0.0
 /// ```
-#[derive(Add, Sub, Mul, Div, Neg, Clone, Copy, Debug, PartialEq, PartialOrd, Constructor)]
+#[derive(Add, Sub, Mul, Div, Neg, Clone, Copy, Debug, PartialOrd, Constructor)]
 pub struct Vec3 {
     /// X component of the vector.
     pub x: f64,
@@ -32,18 +34,47 @@ pub struct Vec3 {
     pub z: f64,
 }
 
+const EPSILON: f64 = 1e-9;
+
+impl PartialEq for Vec3 {
+    fn eq(&self, other: &Self) -> bool {
+        (self.x - other.x).abs() < EPSILON &&
+        (self.y - other.y).abs() < EPSILON &&
+        (self.z - other.z).abs() < EPSILON
+    }
+}
+
 impl Vec3 {
     /// A zero Vector (0.0, 0.0, 0.0)
-    pub const ZERO: Vec3 = Vec3 { x: 0.0, y: 0.0, z: 0.0 };
+    pub const ZERO: Vec3 = Vec3 {
+        x: 0.0,
+        y: 0.0,
+        z: 0.0,
+    };
     /// A one Vector (1.0, 1.0, 1.0)
-    pub const ONE: Vec3 = Vec3 { x: 1.0, y: 1.0, z: 1.0 };
+    pub const ONE: Vec3 = Vec3 {
+        x: 1.0,
+        y: 1.0,
+        z: 1.0,
+    };
     /// A Unit Vector in X (1.0, 0.0, 0.0)
-    pub const UNIT_X: Vec3 = Vec3 { x: 1.0, y: 0.0, z: 0.0 };
+    pub const UNIT_X: Vec3 = Vec3 {
+        x: 1.0,
+        y: 0.0,
+        z: 0.0,
+    };
     /// A Unit Vector in Y (0.0, 1.0, 0.0)
-    pub const UNIT_Y: Vec3 = Vec3 { x: 0.0, y: 1.0, z: 0.0 };
+    pub const UNIT_Y: Vec3 = Vec3 {
+        x: 0.0,
+        y: 1.0,
+        z: 0.0,
+    };
     /// A Unit Vector in Z (0.0, 0.0, 1.0)
-    pub const UNIT_Z: Vec3 = Vec3 { x: 0.0, y: 0.0, z: 1.0 };
-
+    pub const UNIT_Z: Vec3 = Vec3 {
+        x: 0.0,
+        y: 0.0,
+        z: 1.0,
+    };
 
     /// Returns the **magnitude** (length) of the vector.
     ///
@@ -70,7 +101,6 @@ impl Vec3 {
     pub fn dot(&self, other: &Vec3) -> f64 {
         (self.x * other.x) + (self.y * other.y) + (self.z * other.z)
     }
-
 
     /// Returns the **cross product** between `self` and another [`Vec3`].
     ///
@@ -106,7 +136,11 @@ impl Vec3 {
         let fx = f(self.x);
         let fy = f(self.y);
         let fz = f(self.z);
-        Vec3 { x: fx, y: fy, z: fz }
+        Vec3 {
+            x: fx,
+            y: fy,
+            z: fz,
+        }
     }
 
     /// Returns a **normalized** version of the vector (unit length).
@@ -140,10 +174,7 @@ impl Vec3 {
     pub fn mag_sq(&self) -> f64 {
         self.x * self.x + self.y * self.y + self.z * self.z
     }
-
-
 }
-
 
 /// Implements scalar multiplication of a vector by a float (`f64`).
 ///
@@ -167,7 +198,6 @@ impl Mul<Vec3> for f64 {
     }
 }
 
-
 /// displays the vector in the form (X, Y, Z)
 
 impl fmt::Display for Vec3 {
@@ -176,15 +206,12 @@ impl fmt::Display for Vec3 {
     }
 }
 
-
 /// Returns (0.0, 0.0, 0.0)
 impl Default for Vec3 {
     fn default() -> Self {
         Self::ZERO
     }
 }
-
-
 
 /// Implements **component-wise multiplication** between two [`Vec3`]s.
 ///
@@ -208,6 +235,18 @@ impl Mul<Vec3> for Vec3 {
     }
 }
 
+impl Mul<Mat3> for Vec3 {
+    type Output = Vec3;
+
+    fn mul(self, rhs: Mat3) -> Vec3 {
+        Vec3 {
+            x: self.x * rhs.a + self.y * rhs.d + self.z * rhs.g,
+            y: self.x * rhs.b + self.y * rhs.e + self.z * rhs.h,
+            z: self.x * rhs.c + self.y * rhs.f + self.z * rhs.i,
+        }
+    }
+}
+
 /// Represents an RGB color with values between `0.0` and `1.0`.
 /// Will eventually contain support for conversions with the image crate
 ///
@@ -219,7 +258,6 @@ pub type Colour = Vec3;
 /// Alias for [`Vec3`].
 pub type Point3D = Vec3;
 impl Point3D {
-
     /// Finds the unsigned distance between `self` and another 3D point `Other`.
     ///
     /// #examples
@@ -248,10 +286,7 @@ impl Point3D {
     pub fn dist_sq(&self, other: &Point3D) -> f64 {
         (*self - *other).mag_sq().abs()
     }
-
 }
-
-
 
 // TESTS
 #[cfg(test)]
@@ -288,7 +323,6 @@ mod tests {
     }
     #[test]
     fn test_dot_product() {
-
         let a = Point3D::new(1.0, 2.0, 3.0);
         let b = Point3D::new(4.0, -5.0, 6.0);
         assert_eq!(a.dot(&b), 12.0);
@@ -325,5 +359,30 @@ mod tests {
     fn test_default() {
         let v = Vec3::default();
         assert_eq!(v, Vec3::ZERO);
+    }
+
+    #[test]
+    fn test_point3d_dist() {
+        let a = Point3D::new(1.0, 2.0, 3.0);
+        let b = Point3D::new(4.0, 6.0, 3.0);
+        assert_eq!(a.dist(&b), 5.0);
+    }
+
+    #[test]
+    fn test_point3d_dist_sq() {
+        let a = Point3D::new(1.0, 2.0, 3.0);
+        let b = Point3D::new(4.0, 6.0, 3.0);
+        assert_eq!(a.dist_sq(&b), 25.0);
+    }
+
+    #[test]
+    fn test_mul_mat3() {
+        let v = Vec3::new(1.0, 2.0, 3.0);
+        let m = Mat3::new(
+            1.0, 0.0, 0.0,
+            0.0, 1.0, 0.0,
+            0.0, 0.0, 1.0
+        );
+        assert_eq!(v * m, v);
     }
 }
