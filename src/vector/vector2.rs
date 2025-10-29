@@ -127,6 +127,10 @@ impl Vec2 {
     /// ```
     pub fn normalize(&self) -> Vec2 {
         let m = self.mag();
+        if m == 0.0 {
+            return Vec2::ZERO; // todo handle this better
+        }
+
         self.map(|i| i / m)
     }
 
@@ -324,4 +328,19 @@ mod tests {
         let v = Vec2::default();
         assert_eq!(v, Vec2::ZERO);
     }
+
+    #[test]
+    fn test_zero_length_normalize() {
+        let v = Vec2::ZERO;
+        let n = v.normalize();
+        assert_eq!(n, Vec2::ZERO);
+    }
+
+    #[test]
+    fn test_dot_perpendicular() {
+        let a = Vec2::UNIT_X;
+        let b = Vec2::UNIT_Y;
+        assert_eq!(a.dot(&b), 0.0);
+    }
 }
+

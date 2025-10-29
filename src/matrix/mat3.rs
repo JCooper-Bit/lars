@@ -102,7 +102,7 @@ impl Mat3 {
     ///
     /// Computed as:
     /// M⁻¹ = (1/det(M)) * adj(M)
-    ///
+    /// /
     ///          1        | ei - fh   ch - bi   bf - ce |
     /// M⁻¹ = -------  x  | fg - di   ai - cg   cd - af |
     ///        det(M)     | dh - eg   bg - ah   ae - bd |
