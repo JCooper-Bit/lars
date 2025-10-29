@@ -8,7 +8,7 @@ The goal of this project is to **implement linear algebra concepts** (vectors, m
 ## 📚Articles/tutorials
 Alongside developing the crate, I am also writing a series of guides to allow other people to follow along and develop their own linear algebra functionality through a series of short tasks. these tasks are designed with modularity in mind, so if for example you only require a 2D vector struct, you can just do **those** tasks.
 
-Alongside mathematical and conceptual explanations, each task has a corresponding solution with full code examples.
+As well as mathematical and conceptual explanations, each task has a corresponding solution with full code examples.
 
 The guides are written with rust in mind, but it would not be hard to adapt them to any language you wish to use.
 
