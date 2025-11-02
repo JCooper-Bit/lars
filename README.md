@@ -48,7 +48,7 @@ fn main() {
 
 ## 🔧 Implementation Details
 
-### 📚 [Documentation](https://docs.jayc.me/lars/lars)
+### 📚 [Documentation](https://docs.jayc.me/lars)
 
 The `Vec2` and `Vec3` structs are implemented with full operator overloading via [`derive_more`](https://crates.io/crates/derive_more), and includes:
 - Safe, idiomatic Rust design
