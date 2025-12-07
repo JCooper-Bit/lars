@@ -12,7 +12,7 @@ As well as mathematical and conceptual explanations, each task has a correspondi
 
 The guides are written with rust in mind, but it would not be hard to adapt them to any language you wish to use.
 
-You can access the articles [here](https://jcooper-bit.github.io/lars-site/)
+You can access the articles [here](https://www.jayc.me/blog/linear-algebra-from-scratch)
 
 ---
 
