@@ -1,6 +1,6 @@
 # 🧮 Lars — Learning Algebra in Rust!
 
-**Lars** (Linear Algebra in Rust) is a learning-focused Rust crate that provides simple yet powerful linear algebra utilities built from first principles by a student currently going through Linear Algebra classes.
+**Lars** (Linear Algebra in Rust) is a learning-focused Rust crate that provides simple yet powerful linear algebra utilities built from first principles for a student currently going through Linear Algebra classes.
 
 The goal of this project is to **implement linear algebra concepts** (vectors, matrices, transformations) from scratch in Rust, to deeply understand both the **math** and **systems-level programming** behind them.
 
